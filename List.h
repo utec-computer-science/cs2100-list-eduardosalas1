@@ -18,11 +18,11 @@ public:
         this->tail = lista.tail;
     }
 
-    List(T* arr){
+    List(T* arr,int tam){
         head = nullptr;
         tail = head;
-        for(int i = 1 ; i < arr->size() ; i++){
-            push_back(arr->at(i));
+        for(int i = 0 ; i < tam ; i++){
+            push_back(arr[i]);
         }
         tail->next = nullptr;
     }
