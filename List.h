@@ -5,6 +5,35 @@
 #include "node.h"
 #include <ctime>
 
+template <typename T>
+    class Iterator{
+    private:
+        typedef node<T> Node;
+        Node* iterator;
+    public:
+        Iterator(){iterator = nullptr;}
+        Iterator(Node * itr){ this->iterator = itr;}
+
+        void operator ++(){
+            this->iterator = this->iterator->next;
+        }
+        T& operator *(){
+            return iterator->value;
+        }
+        bool operator ==(const Iterator& itr){
+                return iterator == itr.iterator;
+        }
+        bool operator !=(const Iterator& itr){
+            return iterator != itr.iterator;
+        }
+        Node *get_itr(){
+            return iterator;
+        }
+
+
+    };
+
+
 template <class T>
 class List {
 protected:
@@ -13,6 +42,8 @@ protected:
     node* tail  ;
 
 public:
+    typedef Iterator<T> iterator;
+    
     List(const List& lista){
         this->head = lista.head;
         this->tail = lista.tail;
@@ -112,6 +143,13 @@ public:
             pointer = pointer->next;
         }
     };
+    //ITERADORES
+    iterator begin(){
+        return iterator(head);
+    }
+    iterator end(){
+        return iterator(tail);
+    }
 
     // la lista esta vacia?
     bool empty() {
@@ -171,6 +209,7 @@ public:
         }
 
     };
+    
 
     // Elimina todos los elementos por similitud
     void remove(const T& x) {
